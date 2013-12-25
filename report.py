@@ -12,7 +12,7 @@ SAMPLE_SNIPPET = """
 # --
 <project name="${1:test}" default="${2:compile}" basedir="${3:.}">"""
 
-VAR_REGEXP_ST = r'#\s*{}\s*:\s*(\w+)'
+VAR_REGEXP_ST = r'#\s*{}\s*:\s*(.*)'
 
 
 def extract_variable(snippet, variable):
