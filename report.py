@@ -25,6 +25,7 @@ def extract_variable(snippet, variable):
 class Snippet(object):
     def __init__(self, snippet):
         self.name = extract_variable(snippet, 'name')
+        assert self.name is not None, "%s\n %s" % ('name', snippet)
         self.key = extract_variable(snippet, 'key')
         self.group = extract_variable(snippet, 'group')
 
@@ -35,9 +36,13 @@ class Snippet(object):
 def main(directory):
     for root, dirs, files in walk(directory):
         for fi in files:
-            with open(path.join(root, fi)) as opened:
-                print(opened.read())
-                print(Snippet(opened.read()))
+            full_path = path.join(root, fi)
+            with open(full_path) as opened:
+                if fi.startswith('.'):
+                    continue
+
+                text = opened.read()
+                print(Snippet(text))
 
 
 def test_parsing():
